@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, jsonify, redirect, url_for, s
 import re
 import os
 import datetime
-from isaac import database
+from isaac import Database
 
 max = Flask(__name__)
 
@@ -26,14 +26,19 @@ def signup():
             'last_login': datetime.now().isoformat()
         }
         
-        user = database.register_user(email, password, additional_data)
+        company_data = {
+            'is_company': True,
+            'company_name': 'Company XYZ Ltd',
+            'region': 'US-West'
+        }
+        user = Database.register_user('company@example.com', 'secure_password', company_data)
         if user:
             session['user_id'] = user['localId']
             return redirect(url_for('calendar_view'))
         else:
             return render_template('signup.html', error="Registration failed. Please try again.")
             
-    return render_template('signup.html')
+    return render_template('signUpPage.html')
 
 @max.route('/login', methods=['GET', 'POST'])
 def login():
@@ -41,7 +46,7 @@ def login():
         email = request.form.get('email')
         password = request.form.get('password')
 
-        user = database.authenticate_user(email, password)
+        user = Database.authenticate_user(email, password)
         if user:
             session['user_id'] = user['localId']
             # Update last login time in Firestore
@@ -50,12 +55,11 @@ def login():
         else:
             return render_template('login.html', error="Invalid login credentials")
     
-    return render_template('login.html')
+    return render_template('logInPage.html')
 
 @max.route('/logout')
 def logout():
     session.clear()
     return redirect(url_for('home'))
 
-if __name__ == 'main':
-    max.run(host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
+max.run(host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
