@@ -5,7 +5,7 @@ max = Flask(__name__)
 
 @max.route('/', methods=['GET'])
 def logInPage():
-    return render_template('logInPage.html')
+
 
 @max.route('/', methods=['GET'])
 def signUpPage():
