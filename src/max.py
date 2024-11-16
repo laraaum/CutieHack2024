@@ -56,3 +56,6 @@ def login():
 def logout():
     session.clear()
     return redirect(url_for('home'))
+
+if __name__ == 'main':
+    max.run(host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
