@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Make Requests</title>
+    <link rel="stylesheet" href="makeRequestsStyles.css">
+</head>
+<body>
+    <div class="request-container">
+        <h1>Make Request</h1>
+        <form>
+            <div class="form-group">
+                <label for="city">City</label>
+                <select id="city" required>
+                    <option value="">Select city</option>
+                    <option value="riverside">Riverside</option>
+                    <option value="los-angeles">Los Angeles</option>
+                    <option value="long-beach">Long Beach</option>
+                    <option value="glendale">Glendale</option>
+                    <option value="santa-clarita">Santa Clarita</option>
+                    <option value="pasadena">Pasadena</option>
+                    <option value="torrance">Torrance</option>
+                    <option value="pomona">Pomona</option>
+                    <option value="palmdale">Palmdale</option>
+                    <option value="inglewood">Inglewood</option>
+                    <option value="lancaster">Lancaster</option>
+                    <option value="el-monte">El Monte</option>
+                    <option value="downey">Downey</option>
+                    <option value="west-covina">West Covina</option>
+                    <option value="norwalk">Norwalk</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea 
+                    id="description" 
+                    placeholder="Describe your request in detail..."
+                    required
+                ></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="participants">Number of Participants</label>
+                <input 
+                    type="number" 
+                    id="participants" 
+                    min="1"
+                    placeholder="Enter number of participants"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="payout">Payout</label>
+                <div class="input-with-icon">
+                    <span class="currency-symbol">$</span>
+                    <input 
+                        type="number" 
+                        id="payout" 
+                        class="payout-input"
+                        min="0"
+                        step="0.01"
+                        placeholder="Enter payout amount"
+                        required
+                    >
+                </div>
+            </div>
+
+            <button type="submit" class="post-btn">Post Request</button>
+        </form>
+    </div>
+</body>
+</html>
