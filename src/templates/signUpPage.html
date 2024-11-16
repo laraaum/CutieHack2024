@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up Page</title>
-    <link rel="stylesheet" href="signUpPageStyles.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/signUpPageStyles.css') }}" />
     
 </head>
 <body>
@@ -74,7 +74,7 @@
 
             <button type="submit" class="signup-btn">Sign Up</button>
             <div class="login-link">
-                Already have an account? <a href="logInPage.html">Login</a>
+                Already have an account? <a href="login">Login</a>
             </div>
         </form>
     </div>
