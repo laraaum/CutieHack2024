@@ -13,6 +13,8 @@ def create_app():
     from .lara import lara
     app.register_blueprint(lara, url_prefix='/')
 
+    from .max import max
+    app.register_blueprint(max, url_prefix='/')
     return app
 
 
