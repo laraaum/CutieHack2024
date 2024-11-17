@@ -1,90 +1,112 @@
-{% extends "base.html" %}
-{% block content %}
-<div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-md w-full space-y-8 bg-white p-8 rounded-xl shadow-lg">
-        <div>
-            <h2 class="text-center text-3xl font-extrabold text-gray-900">Create your account</h2>
-        </div>
-        <form class="mt-8 space-y-6" action="{{ url_for('signup') }}" method="POST">
-            <div class="space-y-4">
-                <div>
-                    <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                    <input id="email" name="email" type="email" required 
-                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                </div>
-                
-                <div>
-                    <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-                    <input id="password" name="password" type="password" required 
-                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/signUpPageStyles.css') }}">
+ 
+
+</head>
+<body>
+    <div class="signup-container">
+        <h1>Sign Up</h1>
+        <form method="POST" action="{{ url_for('signup') }}">
+            <div class="toggle-container">
+                <span>Consumer</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="accountTypeToggle" onchange="toggleAccountType()">
+                    <span class="slider"></span>
+                </label>
+                <span>Corporate</span>
+            </div>
+
+            <!-- Hidden input to track account type -->
+            <input type="hidden" id="accountType" name="accountType" value="consumer">
+
+            <!-- Common Fields -->
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            <!-- Consumer Fields -->
+            <div id="consumerFields">
+                <div class="form-group">
+                    <label for="region">Region</label>
+                    <select id="region" name="region" required>
+                        <option value="">Select Region</option>
+                        <option value="north">North</option>
+                        <option value="south">South</option>
+                        <option value="east">East</option>
+                        <option value="west">West</option>
+                    </select>
                 </div>
 
-                <div class="flex items-center">
-                    <input id="is_company" name="is_company" type="checkbox" 
-                           class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
-                    <label for="is_company" class="ml-2 block text-sm text-gray-900">Register as Company</label>
-                </div>
-
-                <!-- Company-specific fields -->
-                <div id="company-fields" class="hidden space-y-4">
-                    <div>
-                        <label for="company_name" class="block text-sm font-medium text-gray-700">Company Name</label>
-                        <input id="company_name" name="company_name" type="text" 
-                               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                    </div>
-                </div>
-
-                <!-- Consumer-specific fields -->
-                <div id="consumer-fields" class="space-y-4">
-                    <div>
-                        <label for="energy_provider" class="block text-sm font-medium text-gray-700">Energy Provider</label>
-                        <input id="energy_provider" name="company_name" type="text" 
-                               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                    </div>
-                    <div>
-                        <label for="region" class="block text-sm font-medium text-gray-700">Region</label>
-                        <input id="region" name="region" type="text" 
-                               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                    </div>
-                </div>
-
-                <div>
-                    <label for="account_bal" class="block text-sm font-medium text-gray-700">Initial Account Balance</label>
-                    <input id="account_bal" name="account_bal" type="number" step="0.01" required 
-                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                <div class="form-group">
+                    <label for="energyProvider">Energy Provider</label>
+                    <select id="energyProvider" name="energyProvider" required>
+                        <option value="">Select Provider</option>
+                        <option value="provider1">Provider 1</option>
+                        <option value="provider2">Provider 2</option>
+                        <option value="provider3">Provider 3</option>
+                    </select>
                 </div>
             </div>
 
-            <div>
-                <button type="submit" 
-                        class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                    Sign up
-                </button>
+            <!-- Corporate Fields -->
+            <div id="corporateFields" style="display: none;">
+                <div class="form-group">
+                    <label for="companyName">Company Name</label>
+                    <input type="text" id="companyName" name="companyName">
+                </div>
+            </div>
+
+            <button type="submit" class="signup-btn">Sign Up</button>
+            
+            <div class="login-link">
+                Already have an account? <a href="{{ url_for('login') }}">Login</a>
             </div>
         </form>
     </div>
-</div>
 
-<script>
-document.getElementById('is_company').addEventListener('change', function() {
-    const companyFields = document.getElementById('company-fields');
-    const consumerFields = document.getElementById('consumer-fields');
-    
-    if (this.checked) {
-        companyFields.classList.remove('hidden');
-        consumerFields.classList.add('hidden');
-        // Make company fields required and consumer fields not required
-        document.getElementById('company_name').required = true;
-        document.getElementById('energy_provider').required = false;
-        document.getElementById('region').required = false;
-    } else {
-        companyFields.classList.add('hidden');
-        consumerFields.classList.remove('hidden');
-        // Make consumer fields required and company fields not required
-        document.getElementById('company_name').required = false;
-        document.getElementById('energy_provider').required = true;
-        document.getElementById('region').required = true;
-    }
-});
-</script>
-{% endblock %}
+    <script>
+        function toggleAccountType() {
+            const isChecked = document.getElementById('accountTypeToggle').checked;
+            const consumerFields = document.getElementById('consumerFields');
+            const corporateFields = document.getElementById('corporateFields');
+            const accountType = document.getElementById('accountType');
+            
+            if (isChecked) {
+                // Corporate
+                consumerFields.style.display = 'none';
+                corporateFields.style.display = 'block';
+                accountType.value = 'corporate';
+                
+                // Remove required from consumer fields
+                document.getElementById('region').required = false;
+                document.getElementById('energyProvider').required = false;
+                
+                // Add required to corporate fields
+                document.getElementById('companyName').required = true;
+            } else {
+                // Consumer
+                consumerFields.style.display = 'block';
+                corporateFields.style.display = 'none';
+                accountType.value = 'consumer';
+                
+                // Add required to consumer fields
+                document.getElementById('region').required = true;
+                document.getElementById('energyProvider').required = true;
+                
+                // Remove required from corporate fields
+                document.getElementById('companyName').required = false;
+            }
+        }
+    </script>
+</body>
